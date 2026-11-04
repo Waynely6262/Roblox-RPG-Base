@@ -1,0 +1,1 @@
+return require(game.ServerScriptService.Root.RemoteReceivers.Inventory).reset

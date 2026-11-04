@@ -1,0 +1,1 @@
+if not game:GetService("RunService"):IsStudio() then script.Parent: Destroy() end

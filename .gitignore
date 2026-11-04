@@ -1,0 +1,23 @@
+# Place files (keep these out of git; they hold assets and are large)
+*.rbxl
+*.rbxlx
+*.rbxl.lock
+*.rbxlx.lock
+*.rbxm
+*.rbxmx
+
+# Rojo / tooling output
+sourcemap.json
+tree.json
+tree.json.report.json
+check.rbxlx
+
+# Python
+__pycache__/
+*.pyc
+
+# Editors / OS
+.vscode/
+Thumbs.db
+desktop.ini
+.DS_Store

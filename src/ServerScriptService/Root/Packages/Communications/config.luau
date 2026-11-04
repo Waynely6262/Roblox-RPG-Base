@@ -1,0 +1,3 @@
+return {
+	STREAMING_THRESHOLD = 512;
+}

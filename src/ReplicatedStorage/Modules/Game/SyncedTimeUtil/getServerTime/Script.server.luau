@@ -1,0 +1,1 @@
+script.Parent.OnServerInvoke = require(script.Parent.Parent).timestamp

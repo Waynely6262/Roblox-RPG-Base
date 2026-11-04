@@ -1,0 +1,4 @@
+return {
+	"Easing";
+	"Signal";
+}
