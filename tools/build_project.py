@@ -8,9 +8,12 @@ parts) gets ignoreUnknownInstances so syncing never deletes them.
 import json, os, re, sys
 from collections import defaultdict
 
-tree = json.load(open(sys.argv[1]))
-out = sys.argv[2]
-NAME = sys.argv[3] if len(sys.argv) > 3 else 'game'
+ARGS = [a for a in sys.argv[1:] if not a.startswith('--')]
+# --packages: export only ServerScriptService.Root.Packages (for package-only repos)
+PACKAGES_ONLY = '--packages' in sys.argv
+tree = json.load(open(ARGS[0]))
+out = ARGS[1]
+NAME = ARGS[2] if len(ARGS) > 2 else 'game'
 
 children = defaultdict(list)
 for k, v in tree.items():
@@ -125,6 +128,28 @@ def emit(k, dirpath, taken):
 
 roots = {name(k): k for k in children[None]}
 project = {'name': NAME, 'tree': {'$className': 'DataModel'}}
+
+def child_named(k, n):
+    m = [c for c in children[k] if name(c) == n]
+    assert len(m) == 1, (n, len(m))
+    return m[0]
+
+if PACKAGES_ONLY:
+    pk = child_named(child_named(roots['ServerScriptService'], 'Root'), 'Packages')
+    d = os.path.join(out, 'src', 'Packages')
+    os.makedirs(d, exist_ok=True)
+    taken = {'init'}
+    for c in dedupe([c for c in children[pk] if c in needed]):
+        emit(c, d, taken)
+    project['tree']['ServerScriptService'] = {
+        '$className': 'ServerScriptService', '$ignoreUnknownInstances': True,
+        'Root': {
+            '$className': 'Script', '$ignoreUnknownInstances': True,
+            'Packages': {'$className': 'Folder', '$path': 'src/Packages', '$ignoreUnknownInstances': True},
+        },
+    }
+    SERVICES = []
+
 for svc in SERVICES:
     if svc not in roots or roots[svc] not in needed: continue
     k = roots[svc]
@@ -134,11 +159,12 @@ for svc in SERVICES:
     for c in dedupe([c for c in children[k] if c in needed]):
         emit(c, d, taken)
     project['tree'][svc] = {'$className': svc, '$path': f'src/{svc}', '$ignoreUnknownInstances': True}
-leftover = [s for s in roots if roots[s] in needed and s not in SERVICES]
-assert not leftover, leftover
+if not PACKAGES_ONLY:
+    leftover = [s for s in roots if roots[s] in needed and s not in SERVICES]
+    assert not leftover, leftover
 
 write(os.path.join(out, 'default.project.json'), json.dumps(project, indent=2) + '\n')
-json.dump(report, open(os.path.join(sys.argv[1] + '.report.json'), 'w'), indent=1)
+json.dump(report, open(ARGS[0] + '.report.json', 'w'), indent=1)
 print('renamed', len(report['renamed'])); print(*report['renamed'][:30], sep='\n')
 print('disabled', len(report['disabled'])); print(*report['disabled'], sep='\n')
 print('runcontext', report['runcontext'])

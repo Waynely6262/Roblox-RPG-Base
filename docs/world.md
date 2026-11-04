@@ -1,6 +1,6 @@
 # World, floors and entities
 
-The world code lives in the `E2BP` package at `Packages/E2BP/S.World` and is deployed to `ServerScriptService.Root.World`. Tunable constants are in `ReplicatedStorage/Modules/Game/Config.luau`.
+Everything here is in the `E2BP` package (`src/Packages/E2BP`). Paths below are component paths inside that folder. The world code is `S.World`, which deploys to `ServerScriptService.Root.World`. Tunable constants are in `RS.Modules.Game/Config.luau`.
 
 ## Floors
 
@@ -53,10 +53,10 @@ A single `Heartbeat` loop:
 
 ## Combat
 
-Combat moves live in `Root/Other/MovesAsync`. They use spatial queries and casts (`SpatialQuery`, `CastUtil`), Bézier movement (`BezierParams`), and damage and heal packets. Weapon behaviour is under `Root/Tools/Weapon`, with hit shapes `SweepArc`, `FrontalCone`, `ForwardThrust` and `Projectile`. Reach and swing cooldown are set per weapon type in `Config`. Crits multiply damage by 2.75, and every hit varies by ±10% (`DAMAGE_FUZZY`).
+Combat moves live in `S.Other/MovesAsync`. They use spatial queries and casts (`SpatialQuery`, `CastUtil`), Bézier movement (`BezierParams`), and damage and heal packets. Weapon behaviour is under `S.Tools.Weapon` (with client counterparts in `C.Backend.RemoteReceivers.Tool.*`), with hit shapes `SweepArc`, `FrontalCone`, `ForwardThrust` and `Projectile`. Reach and swing cooldown are set per weapon type in `Config`. Crits multiply damage by 2.75, and every hit varies by ±10% (`DAMAGE_FUZZY`).
 
 ## Progression
 
-- **Levelling** (`ReplicatedStorage/Modules/Game/Levelling`) uses the `SeriesMath` XP curves. Skills cap at `MAX_SKILL_LEVEL` and overall level at `MAX_OVERALL_LEVEL`.
+- **Levelling** (`RS.Modules.Game/Levelling`) uses the `SeriesMath` XP curves. Skills cap at `MAX_SKILL_LEVEL` and overall level at `MAX_OVERALL_LEVEL`.
 - **Level caps** (`S.MaxLevel`): max level is `60 + 5·ascensions + reincarnations`, and max skill level is `10·(level + 1)`.
-- **Rebirths, reincarnation and upgrades** reset or reconcile profile data from `ServerStorage/DSTemplate`. Upgrades apply stat modifiers when the character spawns (`Character/OnSpawn/HumanoidAffectorUpgrades`).
+- **Rebirths, reincarnation and upgrades** reset or reconcile profile data from the save template in `S.Data/DSTemplate`, which DSPlayers also uses through its config. Upgrades apply stat modifiers when the character spawns (`Server.Players.Player.Character/OnSpawn/HumanoidAffectorUpgrades`).

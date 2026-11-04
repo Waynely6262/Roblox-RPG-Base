@@ -1,0 +1,5 @@
+return {
+	"Communications";
+	"DSClientRoot";
+	"UserInterface";
+}
