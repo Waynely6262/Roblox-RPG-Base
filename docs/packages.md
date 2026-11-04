@@ -59,5 +59,5 @@ For example, `Inventory/Server.Players.PlayerInventories` deploys to `ServerScri
 
 1. Create `Packages/<Name>/`.
 2. Add components with prefixed names, e.g. `S.MyFeature.luau` or `C.Graphics.MyWidget.luau`.
-3. Optionally add `requirements.luau` (returning a list of package names), `config.luau`, and a `readme`.
+3. Optionally add `requirements.luau` (returning a list of package names), `config.luau`, and a `readme`. This highlights any dependencies that the package has, for example `Inventory` has both a client and server component, which depends on the `Communications` package.
 4. Start a play test. The loader prints conflicts and missing dependencies to the output.
