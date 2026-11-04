@@ -1,4 +1,0 @@
-return {
-	"Inventory";
-	"InventoryMenus";
-}

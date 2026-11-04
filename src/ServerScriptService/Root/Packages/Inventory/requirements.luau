@@ -1,5 +1,0 @@
-return {
-	"UserInterface";
-	"Communications";
-	"CustomTools";
-}

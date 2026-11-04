@@ -4,38 +4,16 @@
     "$className": "DataModel",
     "ServerScriptService": {
       "$className": "ServerScriptService",
-      "$path": "src/ServerScriptService",
-      "$ignoreUnknownInstances": true
-    },
-    "ReplicatedStorage": {
-      "$className": "ReplicatedStorage",
-      "$path": "src/ReplicatedStorage",
-      "$ignoreUnknownInstances": true
-    },
-    "ServerStorage": {
-      "$className": "ServerStorage",
-      "$path": "src/ServerStorage",
-      "$ignoreUnknownInstances": true
-    },
-    "StarterPack": {
-      "$className": "StarterPack",
-      "$path": "src/StarterPack",
-      "$ignoreUnknownInstances": true
-    },
-    "StarterGui": {
-      "$className": "StarterGui",
-      "$path": "src/StarterGui",
-      "$ignoreUnknownInstances": true
-    },
-    "Workspace": {
-      "$className": "Workspace",
-      "$path": "src/Workspace",
-      "$ignoreUnknownInstances": true
-    },
-    "TestService": {
-      "$className": "TestService",
-      "$path": "src/TestService",
-      "$ignoreUnknownInstances": true
+      "$ignoreUnknownInstances": true,
+      "Root": {
+        "$className": "Script",
+        "$ignoreUnknownInstances": true,
+        "Packages": {
+          "$className": "Folder",
+          "$path": "src/Packages",
+          "$ignoreUnknownInstances": true
+        }
+      }
     }
   }
 }

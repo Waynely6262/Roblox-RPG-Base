@@ -1,4 +1,0 @@
-return {
-	"Communications";
-	"DSPlayers";
-}

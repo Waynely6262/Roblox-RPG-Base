@@ -1,0 +1,5 @@
+return {
+	"DSClientRoot";
+	"Easing";
+	"Signal";
+}
